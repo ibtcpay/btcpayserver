@@ -26,6 +26,7 @@ namespace BTCPayServer.Controllers
         [NonAction]
         public async Task<CreatePSBTResponse> CreatePSBT(BTCPayNetwork network, DerivationSchemeSettings derivationSettings, WalletSendModel sendModel, CancellationToken cancellationToken)
         {
+            // kk copied source 2 (createPSBT)
             var nbx = ExplorerClientProvider.GetExplorerClient(network);
             CreatePSBTRequest psbtRequest = new CreatePSBTRequest();
             if (sendModel.InputSelection)
@@ -279,6 +280,7 @@ namespace BTCPayServer.Controllers
             }
             else if (!psbtObject.IsAllFinalized() && !psbtObject.TryFinalize(out var errors))
             {
+                // kk copied source 5
                 vm.SetErrors(errors);
             }
         }
@@ -381,10 +383,12 @@ namespace BTCPayServer.Controllers
                     });
                     return await WalletPSBTReady(walletId, vm, "broadcast");
                 case "broadcast" when !psbt.IsAllFinalized() && !psbt.TryFinalize(out var errors):
+                    // kk copied source 5
                     vm.SetErrors(errors);
                     return View(nameof(WalletPSBT), vm);
                 case "broadcast":
                     {
+                        // kk copied source 6 (broadcast transaction)
                         var transaction = psbt.ExtractTransaction();
                         try
                         {
@@ -478,6 +482,7 @@ namespace BTCPayServer.Controllers
                 case "seed":
                     return SignWithSeed(walletId, signingContext);
                 case "nbx-seed":
+                    // kk copied source 3
                     if (await CanUseHotWallet())
                     {
                         var derivationScheme = GetDerivationSchemeSettings(walletId);

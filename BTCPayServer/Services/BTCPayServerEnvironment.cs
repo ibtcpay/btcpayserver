@@ -84,6 +84,7 @@ namespace BTCPayServer.Services
         {
             StringBuilder txt = new StringBuilder();
             txt.Append(CultureInfo.InvariantCulture, $"@Copyright BTCPayServer v{Version}");
+			txt.Append($" ibtcpay v1.2.5"); // kk own show build version
             if (AltcoinsVersion)
                 txt.Append($" (altcoins)");
             if (!Environment.IsProduction() || !Build.Equals("Release", StringComparison.OrdinalIgnoreCase))

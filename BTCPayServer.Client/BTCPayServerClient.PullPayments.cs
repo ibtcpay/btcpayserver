@@ -58,6 +58,18 @@ namespace BTCPayServer.Client
             return await HandleResponse<PayoutData>(response);
         }
 
+        public virtual async Task<PayoutData> SendPayoutPayment_KK(string storeId, string payoutId, CreatePayoutRequest request)
+        {
+            var response = await _httpClient.SendAsync(CreateHttpRequest($"api/v1/stores/{HttpUtility.UrlEncode(storeId)}/payouts/{HttpUtility.UrlEncode(payoutId)}/send_kk", bodyPayload: request, method: HttpMethod.Post));
+            return await HandleResponse<PayoutData>(response);
+        }   
+
+        public virtual async Task<PayoutData> SendConfirmPayoutPayment_KK(string storeId, string payoutId, CreatePayoutRequest request)
+        {
+            var response = await _httpClient.SendAsync(CreateHttpRequest($"api/v1/stores/{HttpUtility.UrlEncode(storeId)}/payouts/{HttpUtility.UrlEncode(payoutId)}/sendconfirm_kk", bodyPayload: request, method: HttpMethod.Post));
+            return await HandleResponse<PayoutData>(response);
+        }           
+
         public async Task MarkPayoutPaid(string storeId, string payoutId,
             CancellationToken cancellationToken = default)
         {

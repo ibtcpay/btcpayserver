@@ -353,6 +353,20 @@ namespace BTCPayServer.Controllers.Greenfield
                 await _greenfieldPullPaymentController.ApprovePayout(storeId, payoutId, request, cancellationToken));
         }
 
+        public override async Task<PayoutData> SendPayoutPayment_KK(string storeId, string payoutId,
+            CreatePayoutRequest request)
+        {
+            return GetFromActionResult<PayoutData>(
+                await _greenfieldPullPaymentController.SendPayoutPayment_KK(storeId, payoutId, request));            
+        }   
+        
+        public override async Task<PayoutData> SendConfirmPayoutPayment_KK(string storeId, string payoutId,
+            CreatePayoutRequest request)
+        {
+            return GetFromActionResult<PayoutData>(
+                await _greenfieldPullPaymentController.SendConfirmPayoutPayment_KK(storeId, payoutId, request));            
+        }              
+
         public override async Task<LightningNodeInformationData> GetLightningNodeInfo(string storeId, string cryptoCode,
             CancellationToken token = default)
         {

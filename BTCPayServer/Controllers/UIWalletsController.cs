@@ -698,11 +698,13 @@ namespace BTCPayServer.Controllers
             }
             if (!ModelState.IsValid)
                 return View(vm);
-
+            
+            // kk copied source 1
             DerivationSchemeSettings derivationScheme = GetDerivationSchemeSettings(walletId);
             CreatePSBTResponse psbtResponse;
             try
             {
+                // kk copied source 2 (createPSBT)
                 psbtResponse = await CreatePSBT(network, derivationScheme, vm, cancellation);
             }
             catch (NBXplorerException ex)
@@ -726,6 +728,7 @@ namespace BTCPayServer.Controllers
                 ChangeAddress = psbtResponse.ChangeAddress?.ToString()
             };
 
+            // kk copied source 3 (sign transaction)
             var res = await TryHandleSigningCommands(walletId, psbt, command, signingContext, nameof(WalletSend));
             if (res != null)
             {
@@ -879,6 +882,7 @@ namespace BTCPayServer.Controllers
         public IActionResult SignWithSeed([ModelBinder(typeof(WalletIdModelBinder))]
             WalletId walletId, SignWithSeedViewModel viewModel)
         {
+            // kk copied source 4
             if (!ModelState.IsValid)
             {
                 return View("SignWithSeed", viewModel);
